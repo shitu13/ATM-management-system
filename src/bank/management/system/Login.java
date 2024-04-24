@@ -78,6 +78,8 @@ public class Login extends JFrame implements ActionListener{
         add(signup);
 
         clear.addActionListener(this);
+        signup.addActionListener(this);
+        
 
         setSize(800, 450);
         setVisible(true);
@@ -92,12 +94,16 @@ public class Login extends JFrame implements ActionListener{
         }else if(ae.getSource() == signin){
 
         }else if(ae.getSource() == signup){
+            setVisible(false);
+            new SignUpOne().setVisible(true);
 
         }
     }
     
     public static void main(String[] args) throws Exception {
-        //new Login();
-        new SignUpOne();
+        new Login().setVisible(true);
+        //new SignUpTwo("");
+        //new SignUpThree("").setVisible(true);
+       
     }
 }
