@@ -2,7 +2,7 @@ package bank.management.system;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import java.sql.*;
 import javax.swing.*;
 
 
@@ -79,6 +79,7 @@ public class Login extends JFrame implements ActionListener{
 
         clear.addActionListener(this);
         signup.addActionListener(this);
+        signin.addActionListener(this);
         
 
         setSize(800, 450);
@@ -92,6 +93,23 @@ public class Login extends JFrame implements ActionListener{
             pf.setText("");
            
         }else if(ae.getSource() == signin){
+            Conn co = new Conn();
+            String cardno= tf1.getText();
+            String pinno = pf.getText();
+            
+            String q = "select * from login where cardnumber = '"+cardno+"' and pin = '"+pinno+"'";
+            
+            try{
+                ResultSet rs = co.s.executeQuery(q);
+                if(rs.next()){
+                    setVisible(false);
+                    new Transactions(pinno).setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
 
         }else if(ae.getSource() == signup){
             setVisible(false);
@@ -102,8 +120,14 @@ public class Login extends JFrame implements ActionListener{
     
     public static void main(String[] args) throws Exception {
         new Login().setVisible(true);
+        
         //new SignUpTwo("");
-        //new SignUpThree("").setVisible(true);
+        //new SignUpThree("");
+        //new Transactions("");
+        
+        //new Deposit("");
+        //new FastCash("");
+        //new PinChange("");
        
     }
 }
